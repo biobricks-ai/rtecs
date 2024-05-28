@@ -10,3 +10,6 @@ RTECS_USERNAME=your_username
 RTECS_PASSWORD=your_password
 ```
 3. Run dvc repro
+
+# TODO
+- [ ] complete the 02_process.py for building tables from the downloaded xml.gz

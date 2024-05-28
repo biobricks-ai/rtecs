@@ -1,3 +1,15 @@
----
 schema: '2.0'
-stages: {}
+stages:
+  download:
+    cmd: python stages/01_download.py
+    deps:
+    - path: stages/01_download.py
+      hash: md5
+      md5: 14fc42da499d369645c3bd101684ae4d
+      size: 2583
+    outs:
+    - path: download
+      hash: md5
+      md5: c560a1bde46d81864147889d0ecf12b6.dir
+      size: 46090366
+      nfiles: 1
