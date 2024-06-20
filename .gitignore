@@ -1,6 +1,10 @@
 logs
 /download
+/temp
 /list
 /brick
 .env
 /temp/*
+
+output.xml
+retcs_retcs.parquet

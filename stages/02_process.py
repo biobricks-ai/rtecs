@@ -1,12 +1,32 @@
 import os
-import time
 import pandas as pd
-import pyarrow as pa
-import pyarrow.parquet as pq
-from tqdm import tqdm
 from xml.etree import ElementTree
 import gzip
-import tempfile
+
+# Function to parse XML and extract data
+def parse_xml_to_df(xml_path):
+    tree = ElementTree.parse(xml_path)
+    root = tree.getroot()
+    
+    data = []
+    
+    for record in root.findall('Record'):
+        record_dict = {}
+        
+        # Extract RTECSNumber
+        rtecs_number = record.find('.//RTECSNumber')
+        record_dict['RTECSNumber'] = rtecs_number.text if rtecs_number is not None else None
+        
+        # Extract CASRegistryNumber
+        cas_number = record.find('.//CASRegistryNumber')
+        record_dict['CASRegistryNumber'] = cas_number.text if cas_number is not None else None
+        
+        # Store the entire Record as a string
+        record_dict['xmlRecord'] = ElementTree.tostring(record, encoding='unicode')
+        
+        data.append(record_dict)
+    
+    return pd.DataFrame(data)
 
 # Get path relative to cwd
 xml_files = [f for f in os.listdir('download') if f.endswith('.xml.gz')]
@@ -21,6 +41,16 @@ xml_path = os.path.join('temp', 'temp.xml')
 with gzip.open(xmlgz, 'rb') as f_in:
     with open(xml_path, 'wb') as f_out:
         f_out.write(f_in.read())
-        
 
-# TODO TRANSFORM the xml file into a set of dataframes
+# Parse XML and convert to DataFrame
+df = parse_xml_to_df(xml_path)
+# make a folder called brick if not exist
+
+# Save DataFrame to Parquet 
+output_file = 'rtecs_records.parquet'
+# Have output_file saved 
+df.to_parquet(output_file)
+print(f"Data compiled and saved to {output_file}")
+
+# Display the first few rows of the DataFrame
+print(df.head())
