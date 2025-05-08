@@ -3,6 +3,8 @@ import pandas as pd
 from xml.etree import ElementTree
 import gzip
 
+os.makedirs('brick', exist_ok=True)
+
 # Function to parse XML and extract data
 def parse_xml_to_df(xml_path):
     tree = ElementTree.parse(xml_path)
@@ -47,7 +49,7 @@ df = parse_xml_to_df(xml_path)
 # make a folder called brick if not exist
 
 # Save DataFrame to Parquet 
-output_file = 'rtecs_records.parquet'
+output_file = 'brick/rtecs_records.parquet'
 # Have output_file saved 
 df.to_parquet(output_file)
 print(f"Data compiled and saved to {output_file}")
