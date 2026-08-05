@@ -1,0 +1,43 @@
+{
+  "@context": "../../context/source.context.jsonld",
+  "@type": "dcat:Dataset",
+  "@id": "https://biobricks.ai/bricks/rtecs",
+  "dcterms:title": "RTECS - Registry of Toxic Effects of Chemical Substances",
+  "dcterms:description": "Records from RTECS (Registry of Toxic Effects of Chemical Substances), a toxicology database of chemical substances with acute toxicity, mutagenicity, irritation, tumorigenic and reproductive-toxicity data indexed by RTECS and CAS numbers. RTECS originated at NIOSH but is now a proprietary commercial product; the data must be purchased and is downloaded from the CCOHS (Canadian Centre for Occupational Health and Safety) FTP portal using licensed credentials.",
+  "dcterms:license": {
+    "@id": "UNSTATED",
+    "dcterms:title": "Proprietary CCOHS RTECS commercial subscription; no open-reuse license"
+  },
+  "biobricks:licenseName": "Proprietary / commercial subscription (CCOHS RTECS)",
+  "biobricks:licenseClass": "restricted",
+  "biobricks:merckCommercialUse": "prohibited",
+  "biobricks:licenseEvidence": [
+    {
+      "source": "README.md",
+      "quote": "RTECS must be purchased from https://www.ccohs.ca/products/rtecs.",
+      "confidence": "high"
+    },
+    {
+      "source": "stages/01_download.py",
+      "quote": "driver.get('https://ftp.ccohs.ca/Login') ... username_field.send_keys(os.getenv('RTECS_USERNAME')) ... password_field.send_keys(os.getenv('RTECS_PASSWORD'))",
+      "confidence": "high"
+    }
+  ],
+  "biobricks:reviewed": false,
+  "biobricks:reviewNotes": "Determined by the BioBricks licensing-provenance annotator (Claude). The README states RTECS must be purchased from CCOHS and the download stage authenticates to the CCOHS FTP portal with a paid RTECS_USERNAME/RTECS_PASSWORD. RTECS is a proprietary, subscription-licensed commercial database (no open/Creative Commons license); redistribution is controlled by the CCOHS licence agreement. Classed restricted / prohibited: it may NOT be redistributed to a commercial licensee under the deployment contract without a separate CCOHS RTECS licence. Note: the enrichment metadata in .bb/brick.jsonld describes RTECS as 'maintained by NIOSH' - historically true, but distribution today is commercial via CCOHS; a human should confirm the exact CCOHS licence terms.",
+  "dcterms:creator": "National Institute for Occupational Safety and Health (NIOSH)",
+  "dcterms:publisher": "Canadian Centre for Occupational Health and Safety (CCOHS)",
+  "prov:wasDerivedFrom": [
+    {
+      "@type": "dcat:Dataset",
+      "@id": "https://www.ccohs.ca/products/rtecs",
+      "dcterms:title": "RTECS (Registry of Toxic Effects of Chemical Substances)",
+      "dcterms:license": {
+        "@id": "UNSTATED",
+        "dcterms:title": "Proprietary CCOHS commercial subscription"
+      },
+      "dcat:landingPage": "https://www.ccohs.ca/products/rtecs",
+      "dcterms:publisher": "Canadian Centre for Occupational Health and Safety (CCOHS)"
+    }
+  ]
+}
